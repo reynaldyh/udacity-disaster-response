@@ -25,9 +25,8 @@ The required Python packages:
         `python3 data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/disaster_response.db`
     - To run ML pipeline that trains classifier and saves
         `python3 models/train_classifier.py data/disaster_response.db models/disaster_response_model.pkl`
+    - To run your web app.
+        `python3 app/run.py`
 
-2. Run the following command in the app's directory to run your web app.
-    `python3 run.py`
-
-3. Go to http://0.0.0.0:3001/
+2. Go to http://0.0.0.0:3001/
    Or Go to http://localhost:3001/
