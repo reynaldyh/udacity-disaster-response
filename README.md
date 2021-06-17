@@ -19,7 +19,7 @@ The required Python packages:
 * **app/run.py**: file to run the web app
 
 ### Instructions:
-1. Run the following commands in the project's root directory to set up your database and model.
+1. Run the following commands in the project's root directory to set up your database, model, and run the web app.
 
     - To run ETL pipeline that cleans data and stores in database
         `python3 data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/disaster_response.db`
