@@ -81,25 +81,6 @@ def tokenize(text: str) -> List[str]:
     return clean_tokens
 
 
-def clean(df: pd.DataFrame) -> pd.DataFrame:
-    """clean irrelevant data
-
-    Args:
-        df (pd.DataFrame): disaster response dataframe
-
-    Returns:
-        pd.DataFrame: cleaned disaster response dataframe
-    """
-    # Replace class 2 to class 1 for "related" category
-    df["related"] = df["related"].replace(2, 1)
-
-    # Remove unused columns
-    df = df.drop(columns=["child_alone", "original", "id", "genre"])
-
-    # Remove rows if all values in that row is np.nan
-    return df.dropna(axis=0, how="all")
-
-
 def load_data(database_filepath: str) -> Tuple[pd.Series, pd.Series, List[str]]:
     """load dataset from given db
 
@@ -115,7 +96,6 @@ def load_data(database_filepath: str) -> Tuple[pd.Series, pd.Series, List[str]]:
     table_name = database_filename.split(".db")[0]
 
     df = pd.read_sql_table(table_name, engine)
-    df = clean(df)
 
     X = df["message"]
     Y = df[df.columns[4:]]
