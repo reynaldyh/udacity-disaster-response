@@ -122,8 +122,8 @@ def load_data(database_filepath: str) -> Tuple[pd.Series, pd.Series, List[str]]:
     return X, Y, Y.columns.values
 
 
-def build_model() -> Pipeline:
-    """model initialization
+def build_model() -> GridSearchCV:
+    """model initialization with auto tone hyperparameters using GridSearch
 
     Returns:
         Pipeline: model pipeline
@@ -154,7 +154,21 @@ def build_model() -> Pipeline:
         ]
     )
 
-    return pipeline
+    parameters = {
+        "features__text_pipeline__vect__ngram_range": ((1, 1), (1, 2)),
+        "features__text_pipeline__vect__max_df": (0.5, 0.75, 1.0),
+        "features__text_pipeline__vect__max_features": (None, 5000, 10000),
+        "features__text_pipeline__tfidf__use_idf": (True, False),
+        "clf__estimator__n_estimators": [5, 10, 20, 40],
+        "clf__estimator__learning_rate": [0.01, 0.05, 0.1, 0.2, 0.5],
+        "features__transformer_weights": (
+            {"text_pipeline": 1, "starting_verb": 0.5},
+            {"text_pipeline": 0.5, "starting_verb": 1},
+            {"text_pipeline": 0.8, "starting_verb": 1},
+        ),
+    }
+
+    return GridSearchCV(pipeline, param_grid=parameters, verbose=10)
 
 
 def evaluate_model(
