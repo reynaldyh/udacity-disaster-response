@@ -47,6 +47,12 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     df = df.drop("categories", axis=1)
     df = pd.concat([df, categories], join="inner", axis=1)
 
+    # Remove non binary values in 'related' field
+    df = df[df["related"] < 2]
+
+    # Remove unused columns
+    df = df.drop(columns=["child_alone", "original", "id", "genre"])
+
     return df.drop_duplicates()
 
 
