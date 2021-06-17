@@ -50,9 +50,6 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     # Remove non binary values in 'related' field
     df = df[df["related"] < 2]
 
-    # Remove unused columns
-    df = df.drop(columns=["child_alone", "original", "id", "genre"])
-
     return df.drop_duplicates()
 
 
