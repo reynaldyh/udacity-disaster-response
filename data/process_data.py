@@ -58,10 +58,11 @@ def save_data(df: pd.DataFrame, database_filepath: str):
         database_filepath (str): filepath to database
     """
 
-    database_filename = database_filepath.split("/")[-1]
-    engine = create_engine(f"sqlite:///{database_filename}")
+    engine = create_engine(f"sqlite:///{database_filepath}")
 
+    database_filename = database_filepath.split("/")[-1]
     table_name = database_filename.split(".db")[0]
+
     df.to_sql(table_name, engine, index=False, if_exists="replace")
 
 
