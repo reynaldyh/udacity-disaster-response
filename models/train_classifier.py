@@ -97,6 +97,9 @@ def load_data(database_filepath: str) -> Tuple[pd.Series, pd.Series, List[str]]:
 
     df = pd.read_sql_table(table_name, engine)
 
+    # Remove unused columns
+    df = df.drop(columns=["child_alone", "original", "id", "genre"])
+
     X = df["message"]
     Y = df[df.columns[4:]]
     return X, Y, Y.columns.values
